@@ -1,0 +1,265 @@
+.productDisplay {
+  display: flex;
+  margin: 0 170px;
+  gap: 50px;
+  padding: 30px 0;
+  box-sizing: border-box;
+}
+
+.productdisplay-left {
+  display: flex;
+  gap: 17px;
+  flex-shrink: 0;
+}
+
+.productdisplay-img-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.productdisplay-img-list img {
+  height: 163px;
+  width: 130px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.productdisplay-img-list img:hover {
+  transform: scale(1.05);
+}
+
+.productdisplay-main-img {
+  width: 586px;
+  height: 700px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  user-select: none;
+}
+
+.productdisplay-right {
+  margin: 0 70px;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+}
+
+.productdisplay-right h1 {
+  color: #3d3d3d;
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.productdisplay-right-stars {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #16a216; /* ярко-оранжевый для звезд */
+  font-size: 16px;
+}
+
+.productdisplay-right-stars p {
+  color: #555;
+  margin-left: 8px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.productdisplay-right-prices {
+  display: flex;
+  gap: 30px;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 40px 0;
+  align-items: center;
+}
+
+.productdisplay-right-price-old {
+  color: #818181;
+  text-decoration: line-through;
+  font-weight: 400;
+}
+
+.productdisplay-right-price-new {
+  color: #03ed59; /* зеленый */
+}
+
+.productdisplay-right-description {
+  color: #444;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+.productdisplay-right-size h1 {
+  margin-bottom: 20px;
+  color: #656565;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.productdisplay-right-sizes {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.productdisplay-right-sizes div {
+  padding: 12px 24px;
+  background: #22c55e;
+  color: white;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+  min-width: 40px;
+  text-align: center;
+}
+
+.productdisplay-right-sizes div:hover {
+  background: #16a34a;
+}
+
+.productdisplay-right button {
+  padding: 18px 40px;
+  width: 100%;
+  max-width: 300px;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  background: #07e943; /* красный */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 30px;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.productdisplay-right button:hover {
+  background-color: #1ca359;
+}
+
+.productdisplay-right-category {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+.productdisplay-right-category span {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Адаптивность */
+
+/* Планшеты */
+@media (max-width: 1024px) {
+  .productDisplay {
+    margin: 0 30px;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .productdisplay-left {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .productdisplay-main-img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+  }
+
+  .productdisplay-img-list {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .productdisplay-img-list img {
+    height: 100px;
+    width: 80px;
+  }
+
+  .productdisplay-right {
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .productdisplay-right-sizes {
+    justify-content: center;
+  }
+}
+
+/* Мобильные телефоны */
+@media (max-width: 600px) {
+  .productDisplay {
+    flex-direction: column;
+    margin: 0 20px;
+  }
+
+  .productdisplay-left {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .productdisplay-img-list {
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .productdisplay-img-list img {
+    height: 70px;
+    width: 60px;
+  }
+
+  .productdisplay-main-img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .productdisplay-right {
+    margin: 0;
+    width: 100%;
+  }
+
+  .productdisplay-right h1 {
+    font-size: 28px;
+  }
+
+  .productdisplay-right-prices {
+    font-size: 20px;
+  }
+
+  .productdisplay-right-description {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .productdisplay-right-size h1 {
+    font-size: 18px;
+  }
+
+  .productdisplay-right-sizes div {
+    padding: 10px 16px;
+    font-size: 14px;
+    min-width: 35px;
+  }
+
+  .productdisplay-right button {
+    max-width: 100%;
+  }
+
+  .productdisplay-right-category {
+    font-size: 12px;
+  }
+}

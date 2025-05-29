@@ -1,0 +1,140 @@
+.offers {
+  width: 80%;              /* увеличил ширину */
+  max-width: 1500px;       /* увеличил максимальную ширину */
+  height: 110vh;            /* увеличил высоту */
+  display: flex;
+  margin: 60px auto 150px auto;
+  padding: 0 140px;
+  background: linear-gradient(180deg, #dffbea 0%, #c2efd4 60%);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(50, 139, 86, 0.15);
+  box-sizing: border-box;
+}
+
+
+.offers-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.offers-left h1 {
+  color: #224f34;
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+  user-select: none;
+}
+
+.offers-left p {
+  color: #328b56;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 15px;
+  max-width: 300px;
+  user-select: none;
+}
+
+.offers-left button {
+  width: 220px;
+  height: 60px;
+  border-radius: 35px;
+  background: #224f34;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 30px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(50, 139, 86, 0.3);
+  transition: background-color 0.3s ease;
+}
+
+.offers-left button:hover {
+  background-color: #0ed25c;
+}
+
+.offers-right {
+  flex: 1;
+  display: flex;
+  align-items: flex-start; /* Чтобы картинка поднялась выше */
+  justify-content: flex-end;
+  padding-top: 0; /* убрал паддинг сверху */
+}
+
+.offers-right img {
+  max-width: 100%;
+  width: 520px; /* увеличил ширину картинки */
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(50, 139, 86, 0.1);
+  user-select: none;
+  margin-top: -5px; /* поднять картинку выше */
+}
+.offers-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 80px;  /* увеличен отступ сверху для смещения вниз */
+  padding-right: 0px; /* добавлен отступ справа для смещения влево */
+}
+
+/* Адаптивность для планшетов */
+@media (max-width: 1024px) {
+  .offers {
+    width: 90%;
+    height: auto;
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+  .offers-left, .offers-right {
+    width: 100%;
+    padding: 0;
+    text-align: center;
+  }
+  .offers-left h1 {
+    font-size: 40px;
+  }
+  .offers-left p {
+    font-size: 16px;
+    max-width: 100%;
+  }
+  .offers-left button {
+    width: 180px;
+    height: 50px;
+    font-size: 16px;
+    margin: 20px auto 0;
+  }
+  .offers-right {
+    padding-top: 30px;
+    justify-content: center;
+    align-items: center; /* центрирование для мобильных */
+    margin-top: -20px; /* чтобы немного поднять на мобильных */
+  }
+  .offers-right img {
+    width: 80%;
+    border-radius: 15px;
+    margin-top: 0;
+  }
+}
+
+/* Адаптивность для телефонов */
+@media (max-width: 600px) {
+  .offers-left h1 {
+    font-size: 28px;
+  }
+  .offers-left p {
+    font-size: 14px;
+  }
+  .offers-left button {
+    width: 150px;
+    height: 45px;
+    font-size: 14px;
+  }
+  .offers-right img {
+    width: 100%;
+  }
+}

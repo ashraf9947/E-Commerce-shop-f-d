@@ -1,0 +1,101 @@
+.new-collections {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 100px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0 20px;
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+.new-collections h1 {
+  color: #224f34;
+  font-size: 48px;
+  font-weight: 700;
+  margin: 0;
+  user-select: none;
+  text-align: center;
+}
+
+.new-collections hr {
+  width: 160px;
+  height: 6px;
+  border-radius: 10px;
+  background-color: #0ed25c;
+  border: none;
+  margin: 10px auto 40px auto;
+}
+
+.collections {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  width: 100%;
+}
+
+.collections > * {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.collections > *:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+/* Картинка внутри карточки */
+.collections img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Текст под изображением */
+.collections div {
+  padding: 15px 20px;
+  color: #171717;
+  font-size: 14px;
+}
+
+/* Название товара */
+.collections div p:first-child {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* Цены */
+.collections div p:last-child {
+  font-weight: 700;
+  color: #224f34;
+}
+
+/* Адаптив */
+@media (max-width: 1024px) {
+  .collections {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .new-collections h1 {
+    font-size: 32px;
+  }
+  .new-collections hr {
+    width: 120px;
+    height: 4px;
+    margin-bottom: 30px;
+  }
+  .collections {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
