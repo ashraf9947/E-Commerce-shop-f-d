@@ -10,7 +10,7 @@ from .models import Product, CartItem, Cart, Order, OrderItem
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['id', 'name', 'description', 'price', 'image', 'category', 'stock', 'sku']
 
 
 #  Сериализатор элемента корзины
@@ -58,15 +58,10 @@ class OrderItemSerializer(serializers.ModelSerializer):
 # 🔹 Сериализатор заказа
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, read_only=True)
-    total = serializers.SerializerMethodField()
 
     class Meta:
         model = Order
-        fields = ['id', 'user', 'status', 'created_at', 'items', 'total']
-
-    @extend_schema_field(serializers.DecimalField(max_digits=10, decimal_places=2))
-    def get_total(self, obj):
-        return obj.get_total()
+        fields = ['id', 'user', 'status', 'created_at', 'items', 'shipping_address', 'billing_address', 'payment_method', 'total_amount']
 
 
 #  Кастомный сериализатор для JWT токена

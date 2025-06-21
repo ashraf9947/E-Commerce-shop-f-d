@@ -1,0 +1,1 @@
+- **Backend:** Django, Django REST Framework, JWT (SimpleJWT)

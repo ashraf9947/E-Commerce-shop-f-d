@@ -4,10 +4,12 @@ from .models import Product, CartItem, Cart
 # === Product Admin ===
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'price', 'created_at', 'updated_at', 'is_deleted')
-    list_filter = ('created_at', 'deleted_at')
-    search_fields = ('name',)
+    list_display = ('id', 'name', 'price', 'category', 'stock', 'created_at', 'updated_at', 'is_deleted')
+    list_filter = ('created_at', 'deleted_at', 'category')
+    search_fields = ('name', 'sku')
     readonly_fields = ('created_at', 'updated_at')
+    list_editable = ('price', 'category', 'stock')
+    prepopulated_fields = {'sku': ('name',)}
 
     def get_queryset(self, request):
         # Показываем только не-soft-deleted товары
@@ -43,7 +45,7 @@ class CartAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'created_at', 'updated_at')
     inlines = [CartItemInline]
     search_fields = ('user__username',)
-    readonly_fields = ('created_at', 'updated_at')
+    readonly_fields = ('created_at', 'updated_at', 'user')
 
     def get_queryset(self, request):
         # Показываем только не-soft-deleted корзины
