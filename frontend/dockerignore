@@ -1,0 +1,12 @@
+node_modules
+.dockerignore
+Dockerfile*
+*.log
+.git
+.vscode
+.env
+
+
+
+git add .
+PS C:\Users\stude\E-Commerce-shop> git commit -m  " final"
