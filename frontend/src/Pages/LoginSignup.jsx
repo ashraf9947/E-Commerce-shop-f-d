@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import './CSS/LoginSignup.css';
-import api from '../api/api'; // ✅ use shared axios client
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { RegisterApi } from 'apiClient';
+import { apiConfig } from 'apiClient/config';
 
 const LoginSignUp = () => {
   const [username, setName] = useState('');
@@ -16,18 +16,15 @@ const LoginSignUp = () => {
     setSuccess('');
 
     try {
-      const response = await api.post('/register/', {
+      const registerApi = new RegisterApi(apiConfig);
+      await registerApi.registerCreate({
         username,
         email,
         password,
       });
 
-      if (response.status === 201) {
-        setSuccess('Registration successful!');
-        setTimeout(() => navigate('/login'), 2000);
-      } else {
-        setError('Unexpected server response');
-      }
+      setSuccess('Registration successful!');
+      setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
       setError(
         err.response?.data?.error || 'Registration failed. Please try again.'
@@ -37,7 +34,16 @@ const LoginSignUp = () => {
 
   return (
     <div className='logInSignUp'>
-      <div className="logInSignUp-container">
+      <div className="logInSignUp-container" style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        border: '1px solid #ccc',
+        padding: '20px',
+        borderRadius: '5px',
+        width: '300px',
+        margin: '50px auto',
+      }}>
         <h1>Sign Up</h1>
         <div className="logInSignUp-fields">
           <input

@@ -1,19 +1,18 @@
-import React, { useEffect, useState, useContext } from "react";
-import api from "../../api/api";
+import { useEffect, useState, useContext } from "react";
 import remove_icon from "../Assets/cart_cross_icon.png";
-import "./CartItems.css";
-import { ShopContext } from "../../context/ShopContext";
+import { CartItemsApi } from "apiClient/api";
+import { apiConfig } from "apiClient/config";
 
 const CartItems = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { getTotalCartItems } = useContext(ShopContext);
 
   // === Загрузка корзины ===
   const fetchCart = async () => {
     setLoading(true);
     try {
-      const response = await api.get("/cart-items/");
+      const cartItemsApi = new CartItemsApi(apiConfig);
+      const response = await cartItemsApi.cartItemsList();
       setCartItems(response.data);
     } catch (error) {
       console.error("❌ Ошибка при загрузке корзины:", error);
@@ -29,17 +28,19 @@ const CartItems = () => {
   // === Удаление товара ===
   const handleRemove = async (itemId) => {
     try {
-      await api.delete(`/cart-items/${itemId}/`);
+      const cartItemsApi = new CartItemsApi(apiConfig);
+      await cartItemsApi.cartItemsDestroy(itemId.toString());
       fetchCart();
     } catch (error) {
       console.error("❌ Ошибка при удалении товара:", error);
     }
   };
 
-  // === Изменение количества ===
-  const handleChangeQuantity = async (itemId, quantity) => {
+   // === Изменение количества ===
+   const handleChangeQuantity = async (itemId, quantity) => {
     try {
-      await api.patch(`/cart-items/${itemId}/`, { quantity });
+      const cartItemsApi = new CartItemsApi(apiConfig);
+      await cartItemsApi.cartItemsPartialUpdate(itemId.toString(), { quantity });
       fetchCart();
     } catch (error) {
       console.error("❌ Ошибка при изменении количества:", error);

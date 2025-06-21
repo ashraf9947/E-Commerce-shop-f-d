@@ -6,7 +6,8 @@ import React, {
 } from 'react';
 import jwt_decode from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
-import api from '../api/api';
+import { TokenApi } from 'apiClient';
+import { apiConfig } from 'apiClient/config';
 
 export const AuthContext = createContext();
 
@@ -36,12 +37,13 @@ export const AuthProvider = ({ children }) => {
   // Функция входа в систему (получаем токены, сохраняем в state и localStorage)
   const login = async (username, password) => {
     try {
-      const response = await api.post('/token/', { username, password });
+      const tokenApi = new TokenApi(apiConfig);
+      const response = await tokenApi.tokenCreate({ username, password });
       const tokens = response.data;
 
-      setAuthTokens(tokens); // Сохраняем токены в state
-      localStorage.setItem('authTokens', JSON.stringify(tokens)); // Сохраняем токены в localStorage
-      setUser(jwt_decode(tokens.access)); // Декодируем и сохраняем пользователя
+      setAuthTokens(tokens);
+      localStorage.setItem('authTokens', JSON.stringify(tokens));
+      setUser(jwt_decode(tokens.access));
 
       navigate('/'); // После логина перенаправляем на главную страницу
     } catch (err) {
@@ -63,16 +65,17 @@ export const AuthProvider = ({ children }) => {
     if (!authTokens?.refresh) return;
 
     try {
-      const response = await api.post('/token/refresh/', {
+      const tokenApi = new TokenApi(apiConfig);
+      const response = await tokenApi.tokenRefreshCreate({
         refresh: authTokens.refresh,
       });
 
       const newTokens = { ...authTokens, access: response.data.access };
-      setAuthTokens(newTokens); // Обновляем токены в state
-      localStorage.setItem('authTokens', JSON.stringify(newTokens)); // Сохраняем обновленные токены в localStorage
+      setAuthTokens(newTokens);
+      localStorage.setItem('authTokens', JSON.stringify(newTokens));
 
       const decoded = jwt_decode(response.data.access);
-      setUser(decoded); // Декодируем новый access-токен
+      setUser(decoded);
     } catch (err) {
       console.warn(' Token refresh failed. Logging out...');
       logout(); // Если обновление токена не удалось — выходим

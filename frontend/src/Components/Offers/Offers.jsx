@@ -1,5 +1,4 @@
 import React from "react";
-import "./Offers.css";
 import fig from "../Assets/fig.jpg";
 const Offers = () => {
   return (

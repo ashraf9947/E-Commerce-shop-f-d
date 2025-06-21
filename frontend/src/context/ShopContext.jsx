@@ -1,25 +1,40 @@
 // src/context/ShopContext.jsx
 
-import React, { createContext, useState } from "react";
-import all_product from "../Components/Assets/all_product"; // Массив продуктов
+import React, { createContext, useState, useEffect } from "react";
+import { ProductsApi } from "../apiClient";
+import { apiConfig } from "../apiClient/config";
 
-export const ShopContext = createContext(null); // Экспортируем сам контекст
+export const ShopContext = createContext(null);
 
-// Функция для создания дефолтной корзины
-const getDefaultCart = () => {
+const getDefaultCart = (all_product) => {
   let cart = {};
-  // Заполняем корзину товарами с количеством 0
-  for (let index = 0; index < all_product.length; index++) {
-    cart[all_product[index].id] = 0; // Инициализация корзины с нулевым количеством
+  if (all_product) {
+    for (let index = 0; index < all_product.length; index++) {
+      cart[all_product[index].id] = 0;
+    }
   }
   return cart;
 };
 
 const ShopContextProvider = ({ children }) => {
-  // Состояние для хранения корзины
-  const [cartItems, setCartItems] = useState(getDefaultCart);
+  const [all_product, setAll_product] = useState([]);
+  const [cartItems, setCartItems] = useState({});
 
-  // Добавление товара в корзину (увеличение количества)
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const productsApi = new ProductsApi(apiConfig);
+        const response = await productsApi.productsList();
+        setAll_product(response.data);
+        setCartItems(getDefaultCart(response.data));
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   const addToCart = (itemId) => {
     setCartItems((prev) => ({
       ...prev,
@@ -27,55 +42,51 @@ const ShopContextProvider = ({ children }) => {
     }));
   };
 
-  // Уменьшение количества товара в корзине
   const decreaseCartQuantity = (itemId) => {
     setCartItems((prev) => {
       const currentQty = prev[itemId];
-      if (!currentQty) return prev; // Если товара нет в корзине, возвращаем текущее состояние
+      if (!currentQty) return prev;
 
       if (currentQty === 1) {
-        return { ...prev, [itemId]: 0 }; // Если товара 1, удаляем его
+        return { ...prev, [itemId]: 0 };
       } else {
-        return { ...prev, [itemId]: currentQty - 1 }; // Иначе уменьшаем количество
+        return { ...prev, [itemId]: currentQty - 1 };
       }
     });
   };
 
-  // Удаление товара из корзины
   const removeFromCart = (itemId) => {
     setCartItems((prev) => ({
       ...prev,
-      [itemId]: 0, // Убираем товар из корзины, ставим количество 0
+      [itemId]: 0,
     }));
   };
 
-  // Подсчёт общей суммы товаров в корзине
   const getTotalCartAmount = () => {
     let totalAmount = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
-        // Ищем продукт по id
         const itemInfo = all_product.find(
           (product) => product.id === Number(item)
         );
-        totalAmount += itemInfo.new_price * cartItems[item]; // Умножаем цену на количество
+        if (itemInfo) {
+          totalAmount += itemInfo.price * cartItems[item];
+        }
       }
     }
-    return totalAmount.toFixed(2); // Возвращаем сумму с двумя знаками после запятой
+    return totalAmount.toFixed(2);
   };
 
-  // Подсчёт общего количества товаров в корзине
   const getTotalCartItems = () => {
     let totalItem = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
-        totalItem += cartItems[item]; // Суммируем количество товаров в корзине
+        totalItem += cartItems[item];
       }
     }
     return totalItem;
   };
 
-  // Значения, передаваемые в контекст
   const contextValue = {
     all_product,
     cartItems,
@@ -87,10 +98,10 @@ const ShopContextProvider = ({ children }) => {
   };
 
   return (
-    <ShopContext.Provider value={contextValue}>
-      {children} {/* Даем доступ к контексту всем дочерним компонентам */}
+    <ShopContext.Provider value={contextValue} className="shop-context-provider">
+      {children}
     </ShopContext.Provider>
   );
 };
 
-export default ShopContextProvider; // Экспортируем компонент по умолчанию
+export default ShopContextProvider;

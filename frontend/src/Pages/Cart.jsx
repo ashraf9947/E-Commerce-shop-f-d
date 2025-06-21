@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CartItems from "../Components/CartItems/CartItems";
 import { ShopContext } from "../context/ShopContext"; // Assuming Cart data is stored here
 
