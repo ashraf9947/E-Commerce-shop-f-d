@@ -25,7 +25,7 @@ const UploadAllProductsScript = () => {
           },
           {
             headers: {
-              Authorization: `Bearer ${authTokens?.access}`,
+              Authorization: `${authTokens?.access}`,
               'Content-Type': 'application/json',
             },
           }

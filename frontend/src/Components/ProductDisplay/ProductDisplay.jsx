@@ -17,12 +17,14 @@ const ProductDisplay = ({ product }) => {
     }
 
     try {
-      const cartItemsApi = new CartItemsApi(apiConfig);
+      const cartItemsApi = new CartItemsApi({
+        ...apiConfig,
+        accessToken: authTokens?.access ? `${authTokens.access}` : undefined,
+      });
       await cartItemsApi.cartItemsCreate({
         product_id: product.id,
         quantity: 1,
-      },
-      );
+      });
       alert(" Product added to cart!");
     } catch (error) {
       console.error("Error adding to cart:", error);
