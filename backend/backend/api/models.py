@@ -1,7 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import QuerySet
 from django.utils import timezone
-from django.contrib.auth.models import User
 
 
 class SoftDeleteManager(models.Manager):
@@ -15,8 +15,8 @@ class BaseModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
 
-    objects = SoftDeleteManager()        # default manager (non-deleted)
-    all_objects = models.Manager()       # includes deleted
+    objects = SoftDeleteManager()  # default manager (non-deleted)
+    all_objects = models.Manager()  # includes deleted
 
     class Meta:
         abstract = True
@@ -34,7 +34,7 @@ class Product(BaseModel):
     name = models.CharField(max_length=255)
     description = models.TextField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
-    image = models.ImageField(upload_to='products/', null=True, blank=True)
+    image = models.ImageField(upload_to="products/", null=True, blank=True)
     category = models.CharField(max_length=100, blank=True, null=True)
     stock = models.PositiveIntegerField(default=0)
     sku = models.CharField(max_length=50, unique=True, blank=True, null=True)
@@ -48,7 +48,6 @@ class Cart(BaseModel):
 
     def __str__(self):
         return f"Cart of {self.user.username}"
-    
 
     @property
     def cart_items(self) -> "QuerySet[CartItem]":
@@ -56,16 +55,16 @@ class Cart(BaseModel):
 
     @property
     def total_price(self):
-        return sum(item.total_price for item in self.cart_items.select_related('product').all())
+        return sum(item.total_price for item in self.cart_items.select_related("product").all())
 
 
 class CartItem(BaseModel):
-    cart = models.ForeignKey(Cart, related_name='items', on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, related_name="items", on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
     class Meta:
-        unique_together = ('cart', 'product')
+        unique_together = ("cart", "product")
 
     def __str__(self):
         return f"{self.quantity} x {self.product.name}"
@@ -77,14 +76,14 @@ class CartItem(BaseModel):
 
 class Order(BaseModel):
     STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('paid', 'Paid'),
-        ('shipped', 'Shipped'),
-        ('cancelled', 'Cancelled'),
+        ("pending", "Pending"),
+        ("paid", "Paid"),
+        ("shipped", "Shipped"),
+        ("cancelled", "Cancelled"),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders")
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
     shipping_address = models.TextField(blank=True, null=True)
     billing_address = models.TextField(blank=True, null=True)
     payment_method = models.CharField(max_length=50, blank=True, null=True)
@@ -92,24 +91,24 @@ class Order(BaseModel):
 
     def __str__(self):
         return f"Order #{self.pk} by {self.user.username}"
-   
+
     @property
     def order_items(self) -> "QuerySet[OrderItem]":
         return self.items.all()
 
     @property
     def total_price(self):
-        return sum(item.total_price for item in self.order_items.select_related('product').all())
+        return sum(item.total_price for item in self.order_items.select_related("product").all())
 
 
 class OrderItem(BaseModel):
-    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name="items", on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     price_at_purchase = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
-        unique_together = ('order', 'product')
+        unique_together = ("order", "product")
 
     def __str__(self):
         return f"{self.quantity} x {self.product.name} (Order #{self.order.id})"

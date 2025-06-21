@@ -1,15 +1,26 @@
 from django.contrib import admin
-from .models import Product, CartItem, Cart
+
+from .models import Cart, CartItem, Product
+
 
 # === Product Admin ===
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'price', 'category', 'stock', 'created_at', 'updated_at', 'is_deleted')
-    list_filter = ('created_at', 'deleted_at', 'category')
-    search_fields = ('name', 'sku')
-    readonly_fields = ('created_at', 'updated_at')
-    list_editable = ('price', 'category', 'stock')
-    prepopulated_fields = {'sku': ('name',)}
+    list_display = (
+        "id",
+        "name",
+        "price",
+        "category",
+        "stock",
+        "created_at",
+        "updated_at",
+        "is_deleted",
+    )
+    list_filter = ("created_at", "deleted_at", "category")
+    search_fields = ("name", "sku")
+    readonly_fields = ("created_at", "updated_at")
+    list_editable = ("price", "category", "stock")
+    prepopulated_fields = {"sku": ("name",)}
 
     def get_queryset(self, request):
         # Показываем только не-soft-deleted товары
@@ -17,16 +28,17 @@ class ProductAdmin(admin.ModelAdmin):
 
     def is_deleted(self, obj):
         return obj.deleted_at is not None
+
     is_deleted.boolean = True
-    is_deleted.short_description = 'Deleted?'
+    is_deleted.short_description = "Deleted?"
 
 
 # === CartItem Admin ===
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
-    list_display = ('id', 'cart', 'product', 'quantity')
-    list_filter = ('product',)
-    search_fields = ('product__name',)
+    list_display = ("id", "cart", "product", "quantity")
+    list_filter = ("product",)
+    search_fields = ("product__name",)
 
     # У CartItem нет поля deleted_at — показываем всё
     def get_queryset(self, request):
@@ -42,10 +54,10 @@ class CartItemInline(admin.TabularInline):
 # === Cart Admin ===
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'created_at', 'updated_at')
+    list_display = ("id", "user", "created_at", "updated_at")
     inlines = [CartItemInline]
-    search_fields = ('user__username',)
-    readonly_fields = ('created_at', 'updated_at', 'user')
+    search_fields = ("user__username",)
+    readonly_fields = ("created_at", "updated_at", "user")
 
     def get_queryset(self, request):
         # Показываем только не-soft-deleted корзины
