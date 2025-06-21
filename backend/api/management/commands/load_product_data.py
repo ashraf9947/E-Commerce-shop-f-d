@@ -1,7 +1,8 @@
 import json
 
-from api.models import Product
 from django.core.management.base import BaseCommand
+
+from api.models import Product
 
 
 class Command(BaseCommand):

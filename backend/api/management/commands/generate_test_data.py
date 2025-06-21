@@ -1,5 +1,6 @@
-from api.factories import ProductFactory
 from django.core.management.base import BaseCommand
+
+from api.factories import ProductFactory
 
 
 class Command(BaseCommand):
