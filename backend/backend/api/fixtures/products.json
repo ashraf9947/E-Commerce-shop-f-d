@@ -1,0 +1,398 @@
+[
+  {
+    "model": "api.product",
+    "pk": 1,
+    "fields": {
+      "name": "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
+      "category": "women",
+      "image": "products/product_1.png",
+      "price": 50.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 2,
+    "fields": {
+      "name": "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
+      "category": "women",
+      "image": "products/product_2.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 3,
+    "fields": {
+      "name": "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
+      "category": "women",
+      "image": "products/product_3.png",
+      "price": 60.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 4,
+    "fields": {
+      "name": "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
+      "category": "women",
+      "image": "products/product_4.png",
+      "price": 100.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 5,
+    "fields": {
+      "name": "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
+      "category": "women",
+      "image": "products/product_5.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 6,
+    "fields": {
+      "name": "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
+      "category": "women",
+      "image": "products/product_6.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 7,
+    "fields": {
+      "name": "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
+      "category": "women",
+      "image": "products/product_7.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 8,
+    "fields": {
+      "name": "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
+      "category": "women",
+      "image": "products/product_8.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 9,
+    "fields": {
+      "name": "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
+      "category": "women",
+      "image": "products/product_9.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 10,
+    "fields": {
+      "name": "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
+      "category": "women",
+      "image": "products/product_10.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 11,
+    "fields": {
+      "name": "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
+      "category": "women",
+      "image": "products/product_11.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 12,
+    "fields": {
+      "name": "Striped Flutter Sleeve Overlap Collar Peplum Hem Blouse",
+      "category": "women",
+      "image": "products/product_12.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 13,
+    "fields": {
+      "name": "Men Green Solid Zippered Full-Zip Slim Fit Bomber Jacket",
+      "category": "men",
+      "image": "products/product_13.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 14,
+    "fields": {
+      "name": "Men Green Solid Zippered Full-Zip Slim Fit Bomber Jacket",
+      "category": "men",
+      "image": "products/product_14.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 15,
+    "fields": {
+      "name": "Men Green Solid Zippered Full-Zip Slim Fit Bomber Jacket",
+      "category": "men",
+      "image": "products/product_15.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 16,
+    "fields": {
+      "name": "Men Green Solid Zippered Full-Zip Slim Fit Bomber Jacket",
+      "category": "men",
+      "image": "products/product_16.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 17,
+    "fields": {
+      "name": "Men Green Solid Zippered Full-Zip Slim Fit Bomber Jacket",
+      "category": "men",
+      "image": "products/product_17.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 18,
+    "fields": {
+      "name": "Men Green Solid Zippered Full-Zip Slim Fit Bomber Jacket",
+      "category": "men",
+      "image": "products/product_18.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 19,
+    "fields": {
+      "name": "Men Green Solid Zippered Full-Zip Slim Fit Bomber Jacket",
+      "category": "men",
+      "image": "products/product_19.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 20,
+    "fields": {
+      "name": "Men Green Solid Zippered Full-Zip Slim Fit Bomber Jacket",
+      "category": "men",
+      "image": "products/product_20.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 21,
+    "fields": {
+      "name": "Men Green Solid Zippered Full-Zip Slim Fit Bomber Jacket",
+      "category": "men",
+      "image": "products/product_21.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 22,
+    "fields": {
+      "name": "Men Green Solid Zippered Full-Zip Slim Fit Bomber Jacket",
+      "category": "men",
+      "image": "products/product_22.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 23,
+    "fields": {
+      "name": "Men Green Solid Zippered Full-Zip Slim Fit Bomber Jacket",
+      "category": "men",
+      "image": "products/product_23.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 24,
+    "fields": {
+      "name": "Men Green Solid Zippered Full-Zip Slim Fit Bomber Jacket",
+      "category": "men",
+      "image": "products/product_24.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 25,
+    "fields": {
+      "name": "Boys Orange Colourblocked Hooded Sweatshirt",
+      "category": "kid",
+      "image": "products/product_25.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 26,
+    "fields": {
+      "name": "Boys Orange Colourblocked Hooded Sweatshirt",
+      "category": "kid",
+      "image": "products/product_26.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 27,
+    "fields": {
+      "name": "Boys Orange Colourblocked Hooded Sweatshirt",
+      "category": "kid",
+      "image": "products/product_27.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 28,
+    "fields": {
+      "name": "Boys Orange Colourblocked Hooded Sweatshirt",
+      "category": "kid",
+      "image": "products/product_28.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 29,
+    "fields": {
+      "name": "Boys Orange Colourblocked Hooded Sweatshirt",
+      "category": "kid",
+      "image": "products/product_29.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 30,
+    "fields": {
+      "name": "Boys Orange Colourblocked Hooded Sweatshirt",
+      "category": "kid",
+      "image": "products/product_30.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 31,
+    "fields": {
+      "name": "Boys Orange Colourblocked Hooded Sweatshirt",
+      "category": "kid",
+      "image": "products/product_31.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 32,
+    "fields": {
+      "name": "Boys Orange Colourblocked Hooded Sweatshirt",
+      "category": "kid",
+      "image": "products/product_32.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 33,
+    "fields": {
+      "name": "Boys Orange Colourblocked Hooded Sweatshirt",
+      "category": "kid",
+      "image": "products/product_33.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 34,
+    "fields": {
+      "name": "Boys Orange Colourblocked Hooded Sweatshirt",
+      "category": "kid",
+      "image": "products/product_34.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 35,
+    "fields": {
+      "name": "Boys Orange Colourblocked Hooded Sweatshirt",
+      "category": "kid",
+      "image": "products/product_35.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  },
+  {
+    "model": "api.product",
+    "pk": 36,
+    "fields": {
+      "name": "Boys Orange Colourblocked Hooded Sweatshirt",
+      "category": "kid",
+      "image": "products/product_36.png",
+      "price": 85.0,
+      "description": "Default description"
+    }
+  }
+]
