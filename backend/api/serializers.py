@@ -13,7 +13,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-# 🔹 Сериализатор элемента корзины
+#  Сериализатор элемента корзины
 class CartItemSerializer(serializers.ModelSerializer):
     product = ProductSerializer(read_only=True)
     product_id = serializers.PrimaryKeyRelatedField(
@@ -21,14 +21,14 @@ class CartItemSerializer(serializers.ModelSerializer):
         source='product',
         write_only=True
     )
-    cart = serializers.PrimaryKeyRelatedField(read_only=True)  # 🛑 не требует cart при POST
+    cart = serializers.PrimaryKeyRelatedField(read_only=True)  
 
     class Meta:
         model = CartItem
         fields = ['id', 'cart', 'product', 'product_id', 'quantity', 'created_at']
 
 
-# ✅ 🔹 Сериализатор корзины с total_items
+#  Сериализатор корзины с total_items
 class CartSerializer(serializers.ModelSerializer):
     items = serializers.SerializerMethodField()
     total_items = serializers.SerializerMethodField()
@@ -69,7 +69,7 @@ class OrderSerializer(serializers.ModelSerializer):
         return obj.get_total()
 
 
-# 🔐 Кастомный сериализатор для JWT токена
+#  Кастомный сериализатор для JWT токена
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):

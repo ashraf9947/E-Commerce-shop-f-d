@@ -12,16 +12,16 @@ const ProductDisplay = ({ product }) => {
 
   const handleAddToCart = async () => {
     if (!authTokens?.access) {
-      alert("❌ Please log in to add items to the cart.");
+     alert(" Please log in to add items to the cart");
       return;
-    }
+     }
 
     try {
       const response = await axios.post(
         "/cart-items/",
         { product_id: product.id, quantity: 1 },
         {
-          headers: {
+            headers: {
             Authorization: `Bearer ${authTokens.access}`,
             "Content-Type": "application/json",
           },
@@ -29,18 +29,18 @@ const ProductDisplay = ({ product }) => {
       );
 
       if ([200, 201].includes(response.status)) {
-        alert("✅ Product added to cart!");
+        alert(" Product added to cart!");
       } else {
         console.warn("Unexpected response:", response);
-        alert("⚠️ Unexpected server response.");
+        alert(" Unexpected server response.");
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
-      alert("❌ Failed to add to cart. Check console for more info.");
+      alert(" Failed to add to cart. Check console for more info.");
     }
   };
 
-  // Полный путь к изображению
+  
   const imageUrl = product.image ? `http://127.0.0.1:8000${product.image}` : "/placeholder.jpg";
 
   

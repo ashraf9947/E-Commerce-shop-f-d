@@ -98,7 +98,7 @@ class CreateOrderView(generics.CreateAPIView):
         return Response({"message": "Order created", "order_id": order.id}, status=201)
 
 
-# ✅ Получение корзины текущего пользователя
+#  Получение корзины текущего пользователя
 class MyCartView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = CartSerializer

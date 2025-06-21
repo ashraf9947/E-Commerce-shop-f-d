@@ -5,16 +5,21 @@ import React, {
   useCallback,
 } from 'react';
 import jwt_decode from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 import api from '../api/api';
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
+
+  // Загружаем токены из localStorage (если есть)
   const [authTokens, setAuthTokens] = useState(() => {
     const stored = localStorage.getItem('authTokens');
     return stored ? JSON.parse(stored) : null;
   });
 
+  // Декодируем пользователя из access-токена
   const [user, setUser] = useState(() => {
     try {
       const stored = localStorage.getItem('authTokens');
@@ -28,29 +33,32 @@ export const AuthProvider = ({ children }) => {
     }
   });
 
+  // Функция входа в систему (получаем токены, сохраняем в state и localStorage)
   const login = async (username, password) => {
     try {
       const response = await api.post('/token/', { username, password });
-      const { access, refresh } = response.data;
+      const tokens = response.data;
 
-      const tokens = { access, refresh };
-      setAuthTokens(tokens);
-      localStorage.setItem('authTokens', JSON.stringify(tokens));
+      setAuthTokens(tokens); // Сохраняем токены в state
+      localStorage.setItem('authTokens', JSON.stringify(tokens)); // Сохраняем токены в localStorage
+      setUser(jwt_decode(tokens.access)); // Декодируем и сохраняем пользователя
 
-      const decoded = jwt_decode(access);
-      setUser(decoded);
+      navigate('/'); // После логина перенаправляем на главную страницу
     } catch (err) {
-      console.error('❌ Login failed:', err);
+      logout(); // Очистка данных при ошибке
       throw err;
     }
   };
 
+  // Функция выхода из системы
   const logout = useCallback(() => {
     setAuthTokens(null);
     setUser(null);
-    localStorage.removeItem('authTokens');
-  }, []);
+    localStorage.removeItem('authTokens'); // Удаляем токены из localStorage
+    navigate('/login'); // Перенаправляем на страницу входа
+  }, [navigate]);
 
+  // Функция обновления токена по refresh-токену
   const refreshToken = useCallback(async () => {
     if (!authTokens?.refresh) return;
 
@@ -58,26 +66,24 @@ export const AuthProvider = ({ children }) => {
       const response = await api.post('/token/refresh/', {
         refresh: authTokens.refresh,
       });
-      const access = response.data.access;
 
-      const updated = { ...authTokens, access };
-      setAuthTokens(updated);
-      localStorage.setItem('authTokens', JSON.stringify(updated));
+      const newTokens = { ...authTokens, access: response.data.access };
+      setAuthTokens(newTokens); // Обновляем токены в state
+      localStorage.setItem('authTokens', JSON.stringify(newTokens)); // Сохраняем обновленные токены в localStorage
 
-      const decoded = jwt_decode(access);
-      setUser(decoded);
+      const decoded = jwt_decode(response.data.access);
+      setUser(decoded); // Декодируем новый access-токен
     } catch (err) {
-      console.warn('⚠️ Token refresh failed, logging out...');
-      logout();
+      console.warn(' Token refresh failed. Logging out...');
+      logout(); // Если обновление токена не удалось — выходим
     }
   }, [authTokens, logout]);
 
+  // useEffect для обновления токена каждые 4 минуты
   useEffect(() => {
     if (authTokens) {
-      const interval = setInterval(() => {
-        refreshToken();
-      }, 1000 * 60 * 4); // каждые 4 минуты
-      return () => clearInterval(interval);
+      const interval = setInterval(refreshToken, 1000 * 60 * 4); // каждые 4 минуты
+      return () => clearInterval(interval); // Очищаем интервал при размонтировании компонента
     }
   }, [authTokens, refreshToken]);
 
@@ -86,6 +92,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     authTokens,
+    isAuthenticated: !!user, // Проверка, авторизован ли пользователь
   };
 
   return (

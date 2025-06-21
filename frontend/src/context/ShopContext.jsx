@@ -1,20 +1,25 @@
+// src/context/ShopContext.jsx
+
 import React, { createContext, useState } from "react";
-import all_product from "../Components/Assets/all_product";
+import all_product from "../Components/Assets/all_product"; // Массив продуктов
 
-export const ShopContext = createContext(null);
+export const ShopContext = createContext(null); // Экспортируем сам контекст
 
+// Функция для создания дефолтной корзины
 const getDefaultCart = () => {
   let cart = {};
-  for (let index = 0; index < all_product.length + 1; index++) {
-    cart[index] = 0;
+  // Заполняем корзину товарами с количеством 0
+  for (let index = 0; index < all_product.length; index++) {
+    cart[all_product[index].id] = 0; // Инициализация корзины с нулевым количеством
   }
   return cart;
 };
 
-const ShopContextProvider = (props) => {
+const ShopContextProvider = ({ children }) => {
+  // Состояние для хранения корзины
   const [cartItems, setCartItems] = useState(getDefaultCart);
 
-  // Добавить товар в корзину (увеличить количество)
+  // Добавление товара в корзину (увеличение количества)
   const addToCart = (itemId) => {
     setCartItems((prev) => ({
       ...prev,
@@ -22,55 +27,55 @@ const ShopContextProvider = (props) => {
     }));
   };
 
-  // Уменьшить количество товара в корзине
+  // Уменьшение количества товара в корзине
   const decreaseCartQuantity = (itemId) => {
     setCartItems((prev) => {
       const currentQty = prev[itemId];
-      if (!currentQty) return prev; // если нет товара, просто вернуть текущее состояние
+      if (!currentQty) return prev; // Если товара нет в корзине, возвращаем текущее состояние
 
       if (currentQty === 1) {
-        // если количество 1, удаляем товар из корзины (устанавливаем 0)
-        return { ...prev, [itemId]: 0 };
+        return { ...prev, [itemId]: 0 }; // Если товара 1, удаляем его
       } else {
-        // иначе уменьшаем количество на 1
-        return { ...prev, [itemId]: currentQty - 1 };
+        return { ...prev, [itemId]: currentQty - 1 }; // Иначе уменьшаем количество
       }
     });
   };
 
-  // Полностью удалить товар из корзины (установить количество 0)
+  // Удаление товара из корзины
   const removeFromCart = (itemId) => {
     setCartItems((prev) => ({
       ...prev,
-      [itemId]: 0,
+      [itemId]: 0, // Убираем товар из корзины, ставим количество 0
     }));
   };
 
-  // Подсчет общей суммы товаров в корзине
+  // Подсчёт общей суммы товаров в корзине
   const getTotalCartAmount = () => {
     let totalAmount = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
+        // Ищем продукт по id
         const itemInfo = all_product.find(
           (product) => product.id === Number(item)
         );
-        totalAmount += itemInfo.new_price * cartItems[item];
+        totalAmount += itemInfo.new_price * cartItems[item]; // Умножаем цену на количество
       }
     }
-    return totalAmount.toFixed(2);
+    return totalAmount.toFixed(2); // Возвращаем сумму с двумя знаками после запятой
   };
 
-  // Подсчет общего количества товаров в корзине
+  // Подсчёт общего количества товаров в корзине
   const getTotalCartItems = () => {
     let totalItem = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
-        totalItem += cartItems[item];
+        totalItem += cartItems[item]; // Суммируем количество товаров в корзине
       }
     }
     return totalItem;
   };
 
+  // Значения, передаваемые в контекст
   const contextValue = {
     all_product,
     cartItems,
@@ -83,9 +88,9 @@ const ShopContextProvider = (props) => {
 
   return (
     <ShopContext.Provider value={contextValue}>
-      {props.children}
+      {children} {/* Даем доступ к контексту всем дочерним компонентам */}
     </ShopContext.Provider>
   );
 };
 
-export default ShopContextProvider;
+export default ShopContextProvider; // Экспортируем компонент по умолчанию
