@@ -1,8 +1,0 @@
-node_modules
-.dockerignore
-Dockerfile*
-*.log
-.git
-.vscode
-.env
-

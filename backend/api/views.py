@@ -1,17 +1,16 @@
-from rest_framework import viewsets, generics, status
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.models import User
+from rest_framework import generics, viewsets
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .models import Product, CartItem, Cart, Order, OrderItem
+from .models import Cart, CartItem, Order, OrderItem, Product
 from .serializers import (
-    ProductSerializer,
     CartItemSerializer,
     CartSerializer,
-    OrderSerializer,
     CustomTokenObtainPairSerializer,
+    OrderSerializer,
+    ProductSerializer,
 )
 
 
@@ -19,7 +18,12 @@ from .serializers import (
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.filter(deleted_at__isnull=True)
     serializer_class = ProductSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        if self.action in ["list", "retrieve"]:
+            return [AllowAny()]
+        return [IsAuthenticated()]
 
 
 # 🔹 Элементы корзины
@@ -54,7 +58,7 @@ class RegisterView(generics.CreateAPIView):
         if User.objects.filter(username=username).exists():
             return Response({"error": "User already exists"}, status=400)
 
-        user = User.objects.create_user(username=username, email=email, password=password)
+        _ = User.objects.create_user(username=username, email=email, password=password)
         return Response({"message": "User created"}, status=201)
 
 
@@ -91,7 +95,7 @@ class CreateOrderView(generics.CreateAPIView):
                 order=order,
                 product=item.product,
                 quantity=item.quantity,
-                price_at_purchase=item.product.price
+                price_at_purchase=item.product.price,
             )
 
         cart.items.all().delete()

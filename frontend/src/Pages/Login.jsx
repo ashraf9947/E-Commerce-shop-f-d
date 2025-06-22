@@ -1,5 +1,5 @@
 
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
@@ -26,7 +26,16 @@ const Login = () => {
 
   return (
     <div className="logInSignUp">
-      <div className="logInSignUp-container">
+      <div className="logInSignUp-container" style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        border: '1px solid #ccc',
+        padding: '20px',
+        borderRadius: '5px',
+        width: '300px',
+        margin: '50px auto',
+      }}>
         <h1>Log In</h1>
         <div className="logInSignUp-fields">
           <input

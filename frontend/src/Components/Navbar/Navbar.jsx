@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext, useCallback } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import api from "../../api/api";
-import Classes from "./navbar.module.css";
 import logo from "../Assets/logo.png";
 import cart_icon from "../Assets/cart_icon.png";
 import admin_avatar from "../Assets/admin.png";
 import { Link } from "react-router-dom";
+import { CartItemsApi } from "apiClient";
+import { apiConfig } from "apiClient/config";
 
 const Navbar = () => {
   const [menu, setMenu] = useState("shop");
@@ -17,8 +17,11 @@ const Navbar = () => {
     if (!authTokens?.access) return;
 
     try {
-      const response = await api.get("/cart-items/");
-      setCartCount(response.data.total_items);
+      const cartItemsApi = new CartItemsApi(apiConfig);
+      const response = await cartItemsApi.cartItemsList();
+      // Assuming the API returns an array of cart items, we need to calculate the total quantity
+      const totalItems = response.data.reduce((sum, item) => sum + item.quantity, 0);
+      setCartCount(totalItems);
     } catch (error) {
       console.error("❌ Ошибка при получении корзины:", error);
     }
@@ -28,14 +31,55 @@ const Navbar = () => {
     fetchCartCount();
   }, [fetchCartCount]);
 
+  const navbarStyle = {
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
+    padding: "20px",
+    backgroundColor: "#f8f8f8",
+  };
+
+  const navLogoStyle = {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+  };
+
+  const navMenuStyle = {
+    display: "flex",
+    listStyleType: "none",
+    gap: "30px",
+  };
+
+  const cartStyle = {
+    display: "flex",
+    alignItems: "center",
+    gap: "20px",
+  };
+
+  const cartIconContainerStyle = {
+    position: "relative",
+  };
+
+  const navCartCountStyle = {
+    position: "absolute",
+    top: "-6px",
+    right: "-6px",
+    background: "red",
+    color: "white",
+    fontSize: "12px",
+    padding: "2px 6px",
+    borderRadius: "50%",
+  };
+
   return (
-    <div className={Classes.navbar}>
-      <div className={Classes.nav_logo}>
+    <div style={navbarStyle}>
+      <div style={navLogoStyle}>
         <img src={logo} alt="logo" />
         <p>CINDERELLA</p>
       </div>
 
-      <ul className={Classes.nav_menu}>
+      <ul style={navMenuStyle}>
         <li onClick={() => setMenu("shop")}>
           <Link to="/">Shop</Link>
           {menu === "shop" && <hr />}
@@ -54,7 +98,7 @@ const Navbar = () => {
         </li>
       </ul>
 
-      <div className={Classes.cart}>
+      <div style={cartStyle}>
         {isAuthenticated ? (
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <img
@@ -69,10 +113,10 @@ const Navbar = () => {
           <Link to="/login">Login</Link>
         )}
 
-        <Link to="/cart" className={Classes.cart_icon_container}>
+        <Link to="/cart" style={cartIconContainerStyle}>
           <img src={cart_icon} alt="cart" />
           {cartCount > 0 && (
-            <span className={Classes.nav_cart_count}>{cartCount}</span>
+            <span style={navCartCountStyle}>{cartCount}</span>
           )}
         </Link>
       </div>
