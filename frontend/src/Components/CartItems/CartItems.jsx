@@ -79,7 +79,7 @@ const CartItems = () => {
         if (!product) return null;
 
         const imageUrl = product.image
-          ? `http://127.0.0.1:8000${product.image}`
+          ? product.image
           : "https://via.placeholder.com/80";
 
         return (

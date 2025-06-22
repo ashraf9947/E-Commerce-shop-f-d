@@ -4,5 +4,4 @@ Dockerfile*
 *.log
 .git
 .vscode
-.env
-
+.venv

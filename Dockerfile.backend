@@ -1,10 +1,31 @@
-FROM python:3.13.2
+FROM python:3.12-alpine
 
+# Set working directory
 WORKDIR /app
 
-COPY ./requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install system deps
+RUN apk update && apk add gcc postgresql-dev shadow
 
-COPY . .
+# Install Poetry
+RUN pip install --no-cache-dir poetry && poetry config virtualenvs.create false
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Copy only files needed to install dependencies
+COPY ./backend/pyproject.toml ./backend/poetry.lock ./backend/README.md .env ./
+
+# Install dependencies WITHOUT the full source tree (faster rebuilds)
+RUN poetry install --no-interaction --no-ansi --with dev --no-root
+
+COPY ./backend  .
+# Create static and media folders before changing user
+# Create non-root user
+RUN groupadd -r app && useradd -r -g app app
+
+# Change ownership of everything including staticfiles and media
+RUN chown -R app:app /app
+# Switch to non-root user
+USER app
+
+# Make run.sh executable
+RUN chmod +x /app/run.sh
+
+EXPOSE 8000

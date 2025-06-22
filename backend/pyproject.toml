@@ -19,6 +19,9 @@ line_length = 120
 known_third_party = ["django", "rest_framework"]
 skip = ["migrations"]
 
+[tool.poetry]
+package-mode = false
+
 
 [project]
 name = "backend"
@@ -29,6 +32,7 @@ authors = [
 ]
 readme = "README.md"
 requires-python = ">=3.12"
+package-mode = false
 dependencies = [
     "django (>=5.2.3,<6.0.0)",
     "djangorestframework (>=3.16.0,<4.0.0)",
@@ -40,6 +44,7 @@ dependencies = [
     "factory-boy (>=3.3.3,<4.0.0)",
     "gunicorn (>=23.0.0,<24.0.0)",
     "psycopg2 (>=2.9.10,<3.0.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)",
 ]
 
 [tool.poetry.group.dev.dependencies]
